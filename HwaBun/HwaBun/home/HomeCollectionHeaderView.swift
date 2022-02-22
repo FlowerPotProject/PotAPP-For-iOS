@@ -17,6 +17,9 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     @IBOutlet weak var headerInner: UIView!
     @IBOutlet weak var headerPotIdLabel: UILabel!
     
+    var mainPot: PotInfo?
+    var tapHandler: ((PotInfo) -> ())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         headerThumbnail.layer.cornerRadius = 15
@@ -24,6 +27,8 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     }
     
     func updateHeaderInfo(with pot: PotInfo) {
+        self.mainPot = pot
+        
         self.headerHumidLabel.text = "\(pot.humidInfo)%"
         self.headerTempLabel.text = "\(pot.tempInfo)℃"
         self.headerSoilHumidLabel.text = "\(pot.soilHumidInfo)%"
@@ -64,5 +69,9 @@ class HomeCollectionHeaderView: UICollectionReusableView {
         let dayOfWeekArray: [String] = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
         
         return dayOfWeekArray[dayOfWeek - 1]
+    }
+    @IBAction func cardTapped(_ sender: UIButton) {
+        guard let pot = mainPot else { return }
+        tapHandler?(pot)
     }
 }
