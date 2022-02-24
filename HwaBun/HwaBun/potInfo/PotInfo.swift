@@ -48,6 +48,12 @@ class PotViewModel {
         } ?? PotInfo(id: 0, humidInfo: 0, tempInfo: 0, soilHumidInfo: 0, isWatering: false, isMainPot: true)
     }
     
+    var mainPotIndex: Int? {
+        return manager.pots.firstIndex { PotInfo in
+            return PotInfo.isMainPot == true
+        }
+    }
+    
     func createPot() {
         manager.createPot()
     }

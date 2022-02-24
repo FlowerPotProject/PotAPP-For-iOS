@@ -25,6 +25,7 @@
 		3D32BFBA27BCF569004BC3F9 /* HwaBunUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32BFB927BCF569004BC3F9 /* HwaBunUITests.swift */; };
 		3D32BFBC27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32BFBB27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift */; };
 		3D32BFC927BDF12C004BC3F9 /* PotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */; };
+		3D6EFBD227C776360048C297 /* waterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD127C776360048C297 /* waterControlViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		3D32BFB927BCF569004BC3F9 /* HwaBunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HwaBunUITests.swift; sourceTree = "<group>"; };
 		3D32BFBB27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HwaBunUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotInfo.swift; sourceTree = "<group>"; };
+		3D6EFBD127C776360048C297 /* waterControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = waterControlViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				3D32BF9E27BCF567004BC3F9 /* Main.storyboard */,
 				3D26F08727C36C4700FE6D54 /* home */,
 				3D26F08A27C36CFC00FE6D54 /* detail */,
+				3D6EFBD027C7761A0048C297 /* control */,
 				3D26F08827C36CB700FE6D54 /* potInfo */,
 				3D26F08927C36CE600FE6D54 /* logView */,
 				3D26F08B27C36D1B00FE6D54 /* settings */,
@@ -200,6 +203,14 @@
 				3D32BFBB27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift */,
 			);
 			path = HwaBunUITests;
+			sourceTree = "<group>";
+		};
+		3D6EFBD027C7761A0048C297 /* control */ = {
+			isa = PBXGroup;
+			children = (
+				3D6EFBD127C776360048C297 /* waterControlViewController.swift */,
+			);
+			path = control;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D26F08F27C372C100FE6D54 /* reservePageViewController.swift in Sources */,
+				3D6EFBD227C776360048C297 /* waterControlViewController.swift in Sources */,
 				3D32BFC927BDF12C004BC3F9 /* PotInfo.swift in Sources */,
 				3D26F08027BDF9CF00FE6D54 /* LogViewController.swift in Sources */,
 				3D32BF9D27BCF567004BC3F9 /* HwabunViewController.swift in Sources */,

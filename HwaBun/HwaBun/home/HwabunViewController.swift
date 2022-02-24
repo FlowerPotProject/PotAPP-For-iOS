@@ -45,13 +45,8 @@ extension HwabunViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
             header.updateHeaderInfo(with: potViewModel.mainPot)
-            header.tapHandler = { pot -> () in
-                let sb = UIStoryboard.init(name: "Main", bundle: nil)
-                guard let vc = sb.instantiateViewController(withIdentifier: "detailViewController") as? detailViewController else { return }
-                
-                vc.viewModel.update(model: pot)
-                
-                self.present(vc, animated: true, completion: nil)
+            header.tapHandler = { () -> () in
+                self.performSegue(withIdentifier: "showDetail", sender: self.potViewModel.mainPotIndex)
             }
             
             return header

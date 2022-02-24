@@ -18,7 +18,7 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     @IBOutlet weak var headerPotIdLabel: UILabel!
     
     var mainPot: PotInfo?
-    var tapHandler: ((PotInfo) -> ())?
+    var tapHandler: (() -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,8 +70,8 @@ class HomeCollectionHeaderView: UICollectionReusableView {
         
         return dayOfWeekArray[dayOfWeek - 1]
     }
+    
     @IBAction func cardTapped(_ sender: UIButton) {
-        guard let pot = mainPot else { return }
-        tapHandler?(pot)
+        tapHandler?()
     }
 }
