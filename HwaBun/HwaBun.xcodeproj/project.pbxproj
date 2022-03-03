@@ -26,6 +26,7 @@
 		3D32BFBC27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32BFBB27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift */; };
 		3D32BFC927BDF12C004BC3F9 /* PotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */; };
 		3D6EFBD227C776360048C297 /* waterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD127C776360048C297 /* waterControlViewController.swift */; };
+		3D6EFBD627D05FE70048C297 /* lightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		3D32BFBB27BCF569004BC3F9 /* HwaBunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HwaBunUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotInfo.swift; sourceTree = "<group>"; };
 		3D6EFBD127C776360048C297 /* waterControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = waterControlViewController.swift; sourceTree = "<group>"; };
+		3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lightControlViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				3D6EFBD127C776360048C297 /* waterControlViewController.swift */,
+				3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				3D26F08027BDF9CF00FE6D54 /* LogViewController.swift in Sources */,
 				3D32BF9D27BCF567004BC3F9 /* HwabunViewController.swift in Sources */,
 				3D26F08427BE309300FE6D54 /* HomeCollectionHeaderView.swift in Sources */,
+				3D6EFBD627D05FE70048C297 /* lightControlViewController.swift in Sources */,
 				3D32BF9927BCF567004BC3F9 /* AppDelegate.swift in Sources */,
 				3D26F09427C3737D00FE6D54 /* lightingReservationListViewController.swift in Sources */,
 				3D26F08D27C371C300FE6D54 /* reserveListViewController.swift in Sources */,

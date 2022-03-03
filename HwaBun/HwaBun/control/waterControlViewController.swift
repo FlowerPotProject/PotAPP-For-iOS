@@ -8,6 +8,26 @@
 import UIKit
 
 class waterControlViewController: UIViewController {
+    enum Mode: Int {
+        case auto = 0
+        case manual = 1
+    }
+    
+    enum ControlType: Int {
+        case direct = 0
+        case reservation = 1
+    }
+    
+    enum SupplyType: Int {
+        case time = 0
+        case amount = 1
+    }
+    
+    var manualModeControlType: ControlType = .direct
+    var manualModeSupplyType: SupplyType = .time
+    var setReservationTime: Date?
+    var isAutoModeOn: Bool = false
+    
     @IBOutlet weak var autoModeButton: UIButton!
     @IBOutlet weak var manualModeButton: UIButton!
     @IBOutlet weak var autoModeSettingViewHeight: NSLayoutConstraint!
@@ -16,6 +36,7 @@ class waterControlViewController: UIViewController {
     @IBOutlet weak var soilHumidSlider: UISlider!
     @IBOutlet weak var soilHumidInput: UITextField!
     @IBOutlet weak var soilControlLabel: UILabel!
+    @IBOutlet weak var isAutoModeOnLabel: UILabel!
     @IBOutlet weak var autoModeConfirmButton: UIButton!
     
     @IBOutlet weak var controlMethodSelectButton: UIButton!
@@ -46,20 +67,34 @@ class waterControlViewController: UIViewController {
     @IBAction func autoModeButtonAction(_ sender: Any) {
         autoModeButton.isSelected = !autoModeButton.isSelected
         let selected = autoModeButton.isSelected
-        viewSize(view: autoModeSettingViewHeight, selected)
+        viewSize(view: autoModeSettingViewHeight, selected, modeType: .auto)
         
         // 보이게 수정
         soilHumidSlider.isHidden = !selected
         soilHumidInput.isHidden = !selected
         soilControlLabel.isHidden = !selected
         autoModeConfirmButton.isHidden = !selected
+        
+        // 레이블 상태 변경
+        autoModeStatusLabelAction(selected: selected)
+    }
+    
+    func autoModeStatusLabelAction(selected: Bool) {
+        if selected {
+            isAutoModeOnLabel.text = "ON"
+            isAutoModeOnLabel.textColor = UIColor.systemGreen
+        }
+        else {
+            isAutoModeOnLabel.text = "OFF"
+            isAutoModeOnLabel.textColor = UIColor.systemRed
+        }
     }
     
     // Manual Mode UI제어
     @IBAction func manualModeButtonAction(_ sender: Any) {
         manualModeButton.isSelected = !manualModeButton.isSelected
         let selected = manualModeButton.isSelected
-        viewSize(view: manualModeSettingViewHeight, selected)
+        viewSize(view: manualModeSettingViewHeight, selected, modeType: .manual)
         controlMethodSelectButton.isHidden = !selected
         controlMethodSelectLabel.isHidden = !selected
         supplyAmountSettingLabel.isHidden = !selected
@@ -115,7 +150,20 @@ class waterControlViewController: UIViewController {
     // 메뉴얼 모드 설정 확인
     @IBAction func manualModeConfirm(_ sender: Any) {
         print("메뉴얼 모드 설정 완료.")
-        print("유량 : \(waterAmountInput.text)mL")
+        
+        if manualModeControlType == .direct {
+            print("즉시 실행")
+        }
+        else {
+            print("예약 실행 ---> \(setReservationTime)")
+        }
+        
+        if manualModeSupplyType == .time {
+            print("시간 : \(waterAmountInput.text)초")
+        }
+        else {
+            print("유량 : \(waterAmountInput.text)mL")
+        }
     }
     
 
@@ -127,6 +175,9 @@ class waterControlViewController: UIViewController {
         soilHumidInput.isHidden = true
         soilControlLabel.isHidden = true
         autoModeConfirmButton.isHidden = true
+        
+        // 화분의 상태에 맞게 변경 (On/Off)
+        autoModeStatusLabelAction(selected: false)
         
         // 수동 모드 UI 초기화
         manualModeSettingViewHeight.constant = 0
@@ -148,10 +199,12 @@ class waterControlViewController: UIViewController {
         let direct = UIAction(title: "즉시", handler: { _ in
             self.datePickerHeight.constant = 0
             self.reserveDatePicker.isHidden = true
+            self.manualModeControlType = .direct
         })
         let reserve = UIAction(title: "예약", handler: { _ in
             self.datePickerHeight.constant = 50
             self.reserveDatePicker.isHidden = false
+            self.manualModeControlType = .reservation
         })
 
         let buttonMenu = UIMenu(title: "제어 방식", children: [direct, reserve])
@@ -161,11 +214,15 @@ class waterControlViewController: UIViewController {
     
     func setSupplyMethodButton() {
         let time = UIAction(title: "시간", handler: { _ in
-
+            self.waterAmountInput.placeholder = "시간 입력 (초)"
+            self.mLLabel.text = "초"
+            self.manualModeSupplyType = .time
         })
         
         let amount = UIAction(title: "유량", handler: { _ in
-
+            self.waterAmountInput.placeholder = "유량 입력 (mL)"
+            self.mLLabel.text = "mL"
+            self.manualModeSupplyType = .amount
         })
 
         let buttonMenu = UIMenu(title: "공급 유형", children: [time, amount])
@@ -187,16 +244,28 @@ class waterControlViewController: UIViewController {
     
     // DatePicker의 값 사용 (데이터 저장 필요)
     @objc func datePicker(_ sender: UIDatePicker) {
-        print(sender.date)
+        setReservationTime = sender.date
+        
     }
     
-    private func viewSize(view: NSLayoutConstraint,_ show: Bool) {
-        if show {
-            view.constant = 150
+    private func viewSize(view: NSLayoutConstraint,_ show: Bool, modeType: Mode) {
+        switch modeType {
+        case .auto:
+            if show {
+                view.constant = 150
+            }
+            else {
+                view.constant = 0
+            }
+        case .manual:
+            if show {
+                view.constant = 250
+            }
+            else {
+                view.constant = 0
+            }
         }
-        else {
-            view.constant = 0
-        }
+        
     }
     
 }
