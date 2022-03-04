@@ -33,6 +33,12 @@ class PotManager {
         
         self.pots = [pot1, pot2, pot3, pot4]
     }
+    
+    func loadData() {
+        ServerAPI.load { pots in
+//            self.pots = pots
+        }
+    }
 }
 
 class PotViewModel {

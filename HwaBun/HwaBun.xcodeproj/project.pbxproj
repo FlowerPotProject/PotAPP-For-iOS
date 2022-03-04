@@ -27,6 +27,7 @@
 		3D32BFC927BDF12C004BC3F9 /* PotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */; };
 		3D6EFBD227C776360048C297 /* waterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD127C776360048C297 /* waterControlViewController.swift */; };
 		3D6EFBD627D05FE70048C297 /* lightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */; };
+		3D6EFBDC27D1DEBA0048C297 /* serverAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBDB27D1DEBA0048C297 /* serverAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotInfo.swift; sourceTree = "<group>"; };
 		3D6EFBD127C776360048C297 /* waterControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = waterControlViewController.swift; sourceTree = "<group>"; };
 		3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lightControlViewController.swift; sourceTree = "<group>"; };
+		3D6EFBDB27D1DEBA0048C297 /* serverAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = serverAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				3D32BFC827BDF12C004BC3F9 /* PotInfo.swift */,
+				3D6EFBDB27D1DEBA0048C297 /* serverAPI.swift */,
 			);
 			path = potInfo;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				3D32BF9927BCF567004BC3F9 /* AppDelegate.swift in Sources */,
 				3D26F09427C3737D00FE6D54 /* lightingReservationListViewController.swift in Sources */,
 				3D26F08D27C371C300FE6D54 /* reserveListViewController.swift in Sources */,
+				3D6EFBDC27D1DEBA0048C297 /* serverAPI.swift in Sources */,
 				3D32BF9B27BCF567004BC3F9 /* SceneDelegate.swift in Sources */,
 				3D26F09227C3736500FE6D54 /* wateringReservationListViewController.swift in Sources */,
 				3D26F08227BDF9E000FE6D54 /* SettingsViewController.swift in Sources */,
