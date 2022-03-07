@@ -17,7 +17,7 @@ class HomeCollectionHeaderView: UICollectionReusableView {
     @IBOutlet weak var headerInner: UIView!
     @IBOutlet weak var headerPotIdLabel: UILabel!
     
-    var mainPot: PotInfo?
+    var mainPot: potInfo?
     var tapHandler: (() -> ())?
     
     override func awakeFromNib() {
@@ -26,15 +26,15 @@ class HomeCollectionHeaderView: UICollectionReusableView {
         headerInner.layer.cornerRadius = 15
     }
     
-    func updateHeaderInfo(with pot: PotInfo) {
+    func updateHeaderInfo(with pot: potInfo) {
         self.mainPot = pot
         
-        self.headerHumidLabel.text = "\(pot.humidInfo)%"
-        self.headerTempLabel.text = "\(pot.tempInfo)℃"
-        self.headerSoilHumidLabel.text = "\(pot.soilHumidInfo)%"
-        self.headerIsWatering.text = pot.isWatering ? "급수중" : "대기중"
-        self.headerPotIdLabel.text = "No. \(pot.id + 1)"
-        self.headerThumbnail.image = pot.img
+        self.headerHumidLabel.text = "\(pot.sensorData.humi)%"
+        self.headerTempLabel.text = "\(pot.sensorData.temp)℃"
+        self.headerSoilHumidLabel.text = "\(pot.sensorData.soilHumi)%"
+        self.headerIsWatering.text = pot.stateData.isWatering == 1 ? "급수중" : "대기중"
+        self.headerPotIdLabel.text = "No. \(pot.potId)"
+        self.headerThumbnail.image = UIImage(named: "potImg.jpeg")
         
         updateDate()
     }

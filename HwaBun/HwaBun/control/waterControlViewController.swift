@@ -23,6 +23,8 @@ class waterControlViewController: UIViewController {
         case amount = 1
     }
     
+    var potId: Int = 0
+    
     var manualModeControlType: ControlType = .direct
     var manualModeSupplyType: SupplyType = .time
     var setReservationTime: Date?
@@ -55,7 +57,7 @@ class waterControlViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(potId)
         updateUI()
         setControlMethodButton()
         setSupplyMethodButton()
@@ -150,20 +152,24 @@ class waterControlViewController: UIViewController {
     // 메뉴얼 모드 설정 확인
     @IBAction func manualModeConfirm(_ sender: Any) {
         print("메뉴얼 모드 설정 완료.")
+        let nowDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-ddHH:mm:ss"
+
+        var resultString = dateFormatter.string(from: nowDate)
+        resultString.insert("T", at: resultString.index(resultString.startIndex, offsetBy: 10))
         
+        guard let textWateringTime = waterAmountInput.text else { return }
+        guard let wateringTime = Int(textWateringTime) else { return }
+    
         if manualModeControlType == .direct {
             print("즉시 실행")
+            ServerAPI.C_M_001(tId: resultString, potId: self.potId, paramsDetail: wateringTime)
         }
         else {
             print("예약 실행 ---> \(setReservationTime)")
         }
-        
-        if manualModeSupplyType == .time {
-            print("시간 : \(waterAmountInput.text)초")
-        }
-        else {
-            print("유량 : \(waterAmountInput.text)mL")
-        }
+
     }
     
 
@@ -193,6 +199,10 @@ class waterControlViewController: UIViewController {
         // 텍스트 필드 숫자 키보드
         soilHumidInput.keyboardType = .numberPad
         waterAmountInput.keyboardType = .numberPad
+    }
+    
+    func updateId(id: Int) {
+        self.potId = id
     }
     
     func setControlMethodButton() {
@@ -245,7 +255,7 @@ class waterControlViewController: UIViewController {
     // DatePicker의 값 사용 (데이터 저장 필요)
     @objc func datePicker(_ sender: UIDatePicker) {
         setReservationTime = sender.date
-        
+        print(sender.date)
     }
     
     private func viewSize(view: NSLayoutConstraint,_ show: Bool, modeType: Mode) {

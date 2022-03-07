@@ -292,6 +292,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="P8n-Ma-qhj"/>
                     <connections>
+                        <outlet property="homeCollectionView" destination="ye3-G0-wnT" id="gpa-be-CQs"/>
                         <segue destination="7do-e6-O7G" kind="show" identifier="showDetail" id="zvb-T9-x6V"/>
                     </connections>
                 </viewController>
@@ -410,7 +411,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <connections>
-                                            <segue destination="d4g-h3-hzL" kind="show" id="2Vw-hq-XHv"/>
+                                            <segue destination="d4g-h3-hzL" kind="show" identifier="moveWatering" id="2Vw-hq-XHv"/>
                                         </connections>
                                     </button>
                                 </subviews>

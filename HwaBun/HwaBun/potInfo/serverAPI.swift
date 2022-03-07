@@ -7,59 +7,21 @@
 
 import UIKit
 
-struct Response: Codable {
-    let potList: [potInfo]
-    let reserveList: reserveList
-}
-
-struct potInfo: Codable {
-    let id: Int
-    let sensorData: sensorData
-    let stateData: stateData
-}
-
-struct sensorData: Codable {
-    let temp: Float
-    let humi: Float
-    let soilHumi: Float
-}
-
-struct stateData: Codable {
-    let isWatering: Bool
-    let isLighting: Bool
-    let isAuto: Bool
-    let isMainPot: Bool
-}
-
-struct reserveList: Codable {
-    let waterReserve: [waterReserve]
-    let lightReserve: [lightReserve]
-}
-
-struct waterReserve: Codable {
-    let reserveId: Int
-    let id: Int
-    let startTime: TimeInterval
-    let controlTime: Int
-}
-
-struct lightReserve: Codable {
-    let reserveId: Int
-    let id: Int
-    let startTime: TimeInterval
-    let isOn: Bool
-}
 
 class ServerAPI {
+    
+    static let successRange = 200..<300
+    
+    // MARK: HOME - GET /view/home
+    // 서버에 저장된 모든 화분 정보 로드
     static func load(completion: @escaping ([potInfo]) -> Void) {
         // API URL 저장
         let session = URLSession(configuration: .default)
-        let requestURL = URL(string: "")!
+        let requestURL = URL(string: "http://1.251.183.210:3000/view/home")!
         
         // 데이터 테스크 생성
         let dataTask = session.dataTask(with: requestURL) { data, response, error in
             // 오류코드 검사
-            let successRange = 200..<300
             guard error == nil,
                   let statusCode = (response as? HTTPURLResponse)?.statusCode,
                   successRange.contains(statusCode)
@@ -73,11 +35,44 @@ class ServerAPI {
             let pots = ServerAPI.parseData(resultData)
             
             // 데이터를 로드한 후 실행할 클로저
+            print(pots)
             completion(pots)
         }
         
         dataTask.resume()
 
+    }
+    
+// MARK: C_M_001 - POST /control/code
+    static func C_M_001(tId: String, potId: Int, paramsDetail: Int) {
+        print("---> 즉시 급수 C_M_001 시작 tid : \(tId), potid : \(potId), time: \(paramsDetail)")
+        
+        // 세션 설정
+        let session = URLSession(configuration: .default)
+        var requestURL = URLRequest(url: URL(string: "http://1.251.183.210:3000/control/code")!)
+        requestURL.httpMethod = "POST"
+        requestURL.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // 데이터 파싱
+        let requestData = CMData001(tId: tId, potId: potId, paramsDetail: .init(controlTime: paramsDetail, flux: 0, startTime: ""))
+        guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
+        
+        print("uploadData : \(String(data: uploadData, encoding: .utf8))")
+        
+        let uploadTask = session.uploadTask(with: requestURL, from: uploadData) { data, response, error in
+            guard error == nil
+            else {
+                print("-----> upload task error : \(error)")
+                return
+                
+            }
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                  successRange.contains(statusCode)
+            else { return }
+            print("statusCode: \(statusCode)")
+        }
+        
+        uploadTask.resume()
     }
     
     static func parseData(_ data:Data) -> [potInfo] {
@@ -88,7 +83,7 @@ class ServerAPI {
             let pots = response.potList
             return pots
         } catch let error {
-            print("parsing error : \(error.localizedDescription)")
+            print("parsing error : \(error)")
             return []
         }
     }

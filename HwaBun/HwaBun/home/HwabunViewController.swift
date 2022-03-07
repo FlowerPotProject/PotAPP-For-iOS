@@ -9,12 +9,12 @@ import UIKit
 
 class HwabunViewController: UIViewController, UIGestureRecognizerDelegate {
     let potViewModel = PotViewModel()
+    @IBOutlet weak var homeCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        potViewModel.createPot()
-        // Do any additional setup after loading the view.
+        potViewModel.loadPot(collectionView: homeCollectionView)
     }
 }
 
@@ -29,7 +29,7 @@ extension HwabunViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InfoCell", for: indexPath) as? InfoCell else {
             return UICollectionViewCell()
         }
-        let pot = potViewModel.loadPot(indexPath.item)
+        let pot = potViewModel.loadPotIndex(indexPath.item)
         
         cell.updateUI(pot: pot)
         
@@ -75,7 +75,7 @@ extension HwabunViewController: UICollectionViewDelegate {
         if segue.identifier == "showDetail" {
             let vc = segue.destination as? detailViewController
             if let index = sender as? Int {
-                let potInfo = potViewModel.loadPot(index)
+                let potInfo = potViewModel.loadPotIndex(index)
                 
                 vc?.viewModel.update(model: potInfo)
             }
@@ -87,7 +87,6 @@ extension HwabunViewController: UICollectionViewDelegate {
     }
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue) {
-        
     }
 }
 
@@ -99,15 +98,15 @@ class InfoCell: UICollectionViewCell {
     @IBOutlet weak var isWatering: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     
-    func updateUI(pot: PotInfo) {
+    func updateUI(pot: potInfo) {
         self.contentView.layer.borderColor = UIColor.systemGray3.cgColor
         self.contentView.layer.borderWidth = 1.0
         self.contentView.layer.cornerRadius = 15.0
-        humidLabel.text = "\(Int(pot.humidInfo))%"
-        tempLabel.text = "\(Int(pot.tempInfo))℃"
-        soilHumidLabel.text = "\(Int(pot.soilHumidInfo))%"
-        isWatering.text = pot.isWatering ? "급수중" : "대기중"
-        idLabel.text = "No. \(pot.id + 1)"
+        humidLabel.text = "\(Int(pot.sensorData.humi))%"
+        tempLabel.text = "\(Int(pot.sensorData.temp))℃"
+        soilHumidLabel.text = "\(Int(pot.sensorData.soilHumi))%"
+        isWatering.text = pot.stateData.isWatering == 1 ? "급수중" : "대기중"
+        idLabel.text = "No. \(pot.potId)"
     }
     
 }
