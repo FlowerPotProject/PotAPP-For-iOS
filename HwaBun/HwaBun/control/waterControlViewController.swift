@@ -28,7 +28,7 @@ class waterControlViewController: UIViewController {
     var manualModeControlType: ControlType = .direct
     var manualModeSupplyType: SupplyType = .time
     var setReservationTime: Date?
-    var isAutoModeOn: Bool = false
+    var isAutoModeOn: Int = 0
     
     @IBOutlet weak var autoModeButton: UIButton!
     @IBOutlet weak var manualModeButton: UIButton!
@@ -57,8 +57,8 @@ class waterControlViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(potId)
         updateUI()
+        checkAutoMode()
         setControlMethodButton()
         setSupplyMethodButton()
         setDatePicker()
@@ -69,6 +69,18 @@ class waterControlViewController: UIViewController {
     @IBAction func autoModeButtonAction(_ sender: Any) {
         autoModeButton.isSelected = !autoModeButton.isSelected
         let selected = autoModeButton.isSelected
+        
+        autoModeViewAction(selected: selected)
+    }
+    
+    func checkAutoMode() {
+        if isAutoModeOn == 1 {
+            autoModeButton.isSelected = true
+            autoModeViewAction(selected: autoModeButton.isSelected)
+        }
+    }
+    
+    func autoModeViewAction(selected: Bool) {
         viewSize(view: autoModeSettingViewHeight, selected, modeType: .auto)
         
         // 보이게 수정
@@ -147,24 +159,26 @@ class waterControlViewController: UIViewController {
     @IBAction func confirmAutoMode(_ sender: Any) {
         print("오토 모드 설정 완료.")
         print("습도 : \(soilHumidInput.text)%")
+        guard let text = soilHumidInput.text else { return }
+        guard let setHumi = Int(text) else { return }
+        ServerAPI.C_S_001(potId: self.potId, humi: setHumi)
     }
     
     // 메뉴얼 모드 설정 확인
     @IBAction func manualModeConfirm(_ sender: Any) {
         print("메뉴얼 모드 설정 완료.")
-        let nowDate = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-ddHH:mm:ss"
-
-        var resultString = dateFormatter.string(from: nowDate)
-        resultString.insert("T", at: resultString.index(resultString.startIndex, offsetBy: 10))
         
-        guard let textWateringTime = waterAmountInput.text else { return }
-        guard let wateringTime = Int(textWateringTime) else { return }
+        guard let textWateringValue = waterAmountInput.text else { return }
+        guard let wateringValue = Int(textWateringValue) else { return }
     
         if manualModeControlType == .direct {
             print("즉시 실행")
-            ServerAPI.C_M_001(tId: resultString, potId: self.potId, paramsDetail: wateringTime)
+            if manualModeSupplyType == .time {
+                ServerAPI.C_M_001(potId: self.potId, controlTime: wateringValue)
+            }
+            else {
+                ServerAPI.C_M_002(potId: self.potId, flux: wateringValue)
+            }
         }
         else {
             print("예약 실행 ---> \(setReservationTime)")

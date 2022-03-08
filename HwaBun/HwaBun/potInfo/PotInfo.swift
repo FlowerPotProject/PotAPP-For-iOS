@@ -110,15 +110,16 @@ struct lightReserve: Codable {
     var isOn: Int
 }
 
-// MARK: C_M_001 Data
-struct CMData001: Codable {
+// MARK: POST Data
+struct PostData: Codable {
     let tId: String
     let potId: Int
-    let code: String = "C_M_001"
+    let code: String
     let paramsDetail: paramsDetail
 }
 
 struct paramsDetail: Codable {
+    let setHumi: Int
     let controlTime: Int
     let flux: Int
     let startTime: String

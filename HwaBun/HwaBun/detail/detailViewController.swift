@@ -95,6 +95,8 @@ class detailViewController: UIViewController {
             let destinationVC = segue.destination as? waterControlViewController
             guard let id = viewModel.potInfo?.potId else { return }
             destinationVC?.updateId(id: id)
+            guard let isAuto = viewModel.potInfo?.stateData.isAuto else { return }
+            destinationVC?.isAutoModeOn = isAuto
         }
     }
 
