@@ -98,8 +98,20 @@ class detailViewController: UIViewController {
             guard let isAuto = viewModel.potInfo?.stateData.isAuto else { return }
             destinationVC?.isAutoModeOn = isAuto
         }
+        
+        if segue.identifier == "moveLighting" {
+            let destinationVC = segue.destination as? lightControlViewController
+            guard let id = viewModel.potInfo?.potId else { return }
+            destinationVC?.updateId(id: id)
+        }
     }
 
+}
+
+extension detailViewController {
+    @IBAction func unwindAndRefresh(segue : UIStoryboardSegue) {
+        
+    }
 }
 
 

@@ -466,7 +466,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <connections>
-                                            <segue destination="eLB-3z-bGM" kind="show" id="Jcu-8I-rXx"/>
+                                            <segue destination="eLB-3z-bGM" kind="show" identifier="moveLighting" id="Jcu-8I-rXx"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -538,6 +538,7 @@
                         <outlet property="wateringImg" destination="SB6-eG-gZB" id="iRx-eD-2q6"/>
                         <outlet property="wateringInnerView" destination="NoQ-hw-Fmm" id="nn7-5C-mXw"/>
                         <outlet property="wateringView" destination="wkR-tn-fd9" id="h64-LB-C6n"/>
+                        <segue destination="RRg-FM-Alc" kind="unwind" unwindAction="unwindAndRefreshWithSegue:" id="0Xu-QC-H0o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LeJ-7U-Uss" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -843,10 +844,12 @@
                         <outlet property="soilHumidSlider" destination="Lr0-Iz-BjG" id="Mtf-y3-tAn"/>
                         <outlet property="supplyAmountSettingLabel" destination="zAK-LB-FgQ" id="y3g-zp-2TN"/>
                         <outlet property="supplyMethodSelectButton" destination="etj-N9-GT1" id="hiq-GL-fBD"/>
+                        <outlet property="viewMarginBottom" destination="dj8-6N-poa" id="ObA-eV-cSO"/>
                         <outlet property="waterAmountInput" destination="r0E-Z9-g2j" id="1H7-RX-akG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X11-id-dHH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="RRg-FM-Alc" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="dh5-wj-kMF">
                     <connections>
                         <action selector="tapBG:" destination="d4g-h3-hzL" id="zki-jq-Rzx"/>

@@ -27,13 +27,14 @@ class waterControlViewController: UIViewController {
     
     var manualModeControlType: ControlType = .direct
     var manualModeSupplyType: SupplyType = .time
-    var setReservationTime: Date?
+    var setReservationTime: String = ""
     var isAutoModeOn: Int = 0
     
     @IBOutlet weak var autoModeButton: UIButton!
     @IBOutlet weak var manualModeButton: UIButton!
     @IBOutlet weak var autoModeSettingViewHeight: NSLayoutConstraint!
     @IBOutlet weak var manualModeSettingViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var viewMarginBottom: NSLayoutConstraint!
     
     @IBOutlet weak var soilHumidSlider: UISlider!
     @IBOutlet weak var soilHumidInput: UITextField!
@@ -63,6 +64,8 @@ class waterControlViewController: UIViewController {
         setSupplyMethodButton()
         setDatePicker()
         self.soilHumidInput.addTarget(self, action: #selector(textFieldChange(_:)), for: .editingChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustViewMargin), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustViewMargin), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // Auto Mode UI제어
@@ -71,6 +74,9 @@ class waterControlViewController: UIViewController {
         let selected = autoModeButton.isSelected
         
         autoModeViewAction(selected: selected)
+        if !selected {
+            ServerAPI.C_S_002(potId: self.potId)
+        }
     }
     
     func checkAutoMode() {
@@ -181,6 +187,12 @@ class waterControlViewController: UIViewController {
             }
         }
         else {
+            if manualModeSupplyType == .time {
+                ServerAPI.R_M_001(potId: self.potId, controlTime: wateringValue, startTime: setReservationTime)
+            }
+            else {
+                ServerAPI.R_M_002(potId: self.potId, flux: wateringValue, startTime: setReservationTime)
+            }
             print("예약 실행 ---> \(setReservationTime)")
         }
 
@@ -213,6 +225,24 @@ class waterControlViewController: UIViewController {
         // 텍스트 필드 숫자 키보드
         soilHumidInput.keyboardType = .numberPad
         waterAmountInput.keyboardType = .numberPad
+    }
+    
+    @objc private func adjustViewMargin(noti: Notification) {
+        guard let userInfo = noti.userInfo else { return }
+        // TODO: 키보드 높이에 따른 인풋뷰 위치 변경
+        guard let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else { return }
+        
+        if noti.name == UIResponder.keyboardWillShowNotification {
+            let adjustmentHeight = keyboardFrame.height - view.safeAreaInsets.bottom
+            viewMarginBottom.constant = adjustmentHeight
+        }
+        else {
+            viewMarginBottom.constant = 25
+        }
+        
+        print("---> keyboardFrame \(keyboardFrame)")
+        
     }
     
     func updateId(id: Int) {
@@ -268,8 +298,15 @@ class waterControlViewController: UIViewController {
     
     // DatePicker의 값 사용 (데이터 저장 필요)
     @objc func datePicker(_ sender: UIDatePicker) {
-        setReservationTime = sender.date
-        print(sender.date)
+        let senderDate = sender.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-ddHH:mm:ss"
+        var dateString = dateFormatter.string(from: senderDate)
+        dateString.insert("T", at: dateString.index(dateString.startIndex, offsetBy: 10))
+        
+        setReservationTime = dateString
+        
+        print(setReservationTime)
     }
     
     private func viewSize(view: NSLayoutConstraint,_ show: Bool, modeType: Mode) {

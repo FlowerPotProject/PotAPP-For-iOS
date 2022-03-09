@@ -44,7 +44,7 @@ class PotViewModel {
     var mainPot: potInfo {
         return manager.pots.first { pot in
             return pot.stateData.isMainPot == 1
-        } ?? potInfo(potId: 0, sensorData: .init(temp: 0, humi: 0, soilHumi: 0), stateData: .init(isWatering: 0, isLighting: 0, isAuto: 0, isMainPot: 1))
+        } ?? manager.pots.first ?? potInfo(potId: 0, sensorData: .init(temp: 0, humi: 0, soilHumi: 0), stateData: .init(isWatering: 0, isLighting: 0, isAuto: 0, isMainPot: 1))
     }
     
     var mainPotIndex: Int? {

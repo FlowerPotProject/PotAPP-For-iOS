@@ -28,7 +28,8 @@ class ServerAPI {
     static func load(completion: @escaping ([potInfo]) -> Void) {
         // API URL 저장
         let session = URLSession(configuration: .default)
-        let requestURL = URL(string: "http://1.251.183.210:3000/view/home")!
+        let requestURL = makeURLRequest(api: "/view/home", isPost: false)
+        
         
         // 데이터 테스크 생성
         let dataTask = session.dataTask(with: requestURL) { data, response, error in
@@ -57,7 +58,7 @@ class ServerAPI {
     // 해당 화분의 정보만 로드
     static func loadOnlyPot(potId: Int, completion: @escaping (potInfo) -> Void) {
         let session = URLSession(configuration: .default)
-        let requestURL = URL(string: "http://1.251.183.210:3000/view/home")!
+        let requestURL = makeURLRequest(api: "/view/home", isPost: false)
         
         // 데이터 테스크 생성
         let dataTask = session.dataTask(with: requestURL) { data, response, error in
@@ -83,11 +84,22 @@ class ServerAPI {
     
 // MARK: Control System C_S_00X
     static func C_S_001(potId: Int, humi: Int) {
-        print("---> 자동 급수 C_M_001 시작, tid : \(nowTime), potid : \(potId), setHumi: \(humi)")
+        print("---> 자동 급수 C_S_001 시작, tid : \(nowTime), potid : \(potId), setHumi: \(humi)")
         
         let requestURL = makeURLRequest(api: "/control/code", isPost: true)
         
         let requestData = PostData(tId: nowTime, potId: potId, code: "C_S_001", paramsDetail: .init(setHumi: humi, controlTime: 0, flux: 0, startTime: ""))
+        guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
+        
+        postTasks(url: requestURL, uploadData: uploadData)
+    }
+    
+    static func C_S_002(potId: Int) {
+        print("---> 자동 급수 C_S_002 종료, tid : \(nowTime), potid : \(potId)")
+        
+        let requestURL = makeURLRequest(api: "/control/code", isPost: true)
+        
+        let requestData = PostData(tId: nowTime, potId: potId, code: "C_S_002", paramsDetail: .init(setHumi: 0, controlTime: 0, flux: 0, startTime: ""))
         guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
         
         postTasks(url: requestURL, uploadData: uploadData)
@@ -121,10 +133,56 @@ class ServerAPI {
     }
     
     
+    static func C_M_003(potId: Int) {
+        print("---> 조명 제어 C_M_003 시작, tid: \(nowTime), potId: \(potId)")
+        
+        let requestURL = makeURLRequest(api: "/control/code", isPost: true)
+        
+        let requestData = PostData(tId: nowTime, potId: potId, code: "C_M_003", paramsDetail: .init(setHumi: 0, controlTime: 0, flux: 0, startTime: ""))
+        guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
+        
+        postTasks(url: requestURL, uploadData: uploadData)
+    }
+    
+    
+    static func C_M_004(potId: Int) {
+        print("---> 조명 제어 C_M_004 종료, tid: \(nowTime), potId: \(potId)")
+        
+        let requestURL = makeURLRequest(api: "/control/code", isPost: true)
+        
+        let requestData = PostData(tId: nowTime, potId: potId, code: "C_M_004", paramsDetail: .init(setHumi: 0, controlTime: 0, flux: 0, startTime: ""))
+        guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
+        
+        postTasks(url: requestURL, uploadData: uploadData)
+    }
+    
+//MARK: Reserve Manager R_M_00X
+    static func R_M_001(potId: Int, controlTime: Int, startTime: String) {
+        print("---> 예약 급수 R_M_001 시작, tid : \(nowTime), potid : \(potId), time: \(controlTime), startTime: \(startTime)")
+        
+        let requestURL = makeURLRequest(api: "/control/code", isPost: true)
+        
+        let requestData = PostData(tId: nowTime, potId: potId, code: "R_M_001", paramsDetail: .init(setHumi: 0, controlTime: controlTime, flux: 0, startTime: startTime))
+        guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
+        
+        postTasks(url: requestURL, uploadData: uploadData)
+    }
+    
+    static func R_M_002(potId: Int, flux: Int, startTime: String) {
+        print("---> 예약 급수 R_M_002 시작, tid : \(nowTime), potid : \(potId), flux: \(flux), startTime: \(startTime)")
+        
+        let requestURL = makeURLRequest(api: "/control/code", isPost: true)
+        
+        let requestData = PostData(tId: nowTime, potId: potId, code: "R_M_002", paramsDetail: .init(setHumi: 0, controlTime: 0, flux: flux, startTime: startTime))
+        guard let uploadData = try? JSONEncoder().encode(requestData) else { return }
+        
+        postTasks(url: requestURL, uploadData: uploadData)
+    }
+    
 //MARK: Method for Post Tasks
     // requestURL만들기
     static func makeURLRequest(api: String, isPost: Bool) -> URLRequest {
-        var requestURL = URLRequest(url: URL(string: "http://1.251.183.210:3000\(api)")!)
+        var requestURL = URLRequest(url: URL(string: "http://203.250.32.29:3000\(api)")!)
         if isPost {
             requestURL.httpMethod = "POST"
             requestURL.setValue("application/json", forHTTPHeaderField: "Content-Type")

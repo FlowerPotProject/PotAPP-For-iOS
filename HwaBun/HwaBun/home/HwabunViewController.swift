@@ -10,10 +10,13 @@ import UIKit
 class HwabunViewController: UIViewController, UIGestureRecognizerDelegate {
     let potViewModel = PotViewModel()
     @IBOutlet weak var homeCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         potViewModel.loadPot(collectionView: homeCollectionView)
+        homeCollectionView.refreshControl = UIRefreshControl()
+        homeCollectionView.refreshControl?.addTarget(self, action: #selector(refreshPage(_:)), for: .valueChanged)
     }
 }
 
@@ -86,6 +89,14 @@ extension HwabunViewController: UICollectionViewDelegate {
     }
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue) {
+        print("홈으로")
+    }
+    
+    @objc func refreshPage(_ sender: UIRefreshControl) {
+        print("화면 갱신")
+        potViewModel.loadPot(collectionView: homeCollectionView)
+        sender.endRefreshing()
+        print("완료")
     }
 }
 
