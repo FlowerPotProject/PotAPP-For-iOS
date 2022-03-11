@@ -67,7 +67,8 @@ class waterControlViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustViewMargin), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustViewMargin), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
+// MARK: AutoMode
     // Auto Mode UI제어
     @IBAction func autoModeButtonAction(_ sender: Any) {
         autoModeButton.isSelected = !autoModeButton.isSelected
@@ -169,7 +170,8 @@ class waterControlViewController: UIViewController {
         guard let setHumi = Int(text) else { return }
         ServerAPI.C_S_001(potId: self.potId, humi: setHumi)
     }
-    
+
+// MARK: Manual Mode
     // 메뉴얼 모드 설정 확인
     @IBAction func manualModeConfirm(_ sender: Any) {
         print("메뉴얼 모드 설정 완료.")
@@ -177,8 +179,10 @@ class waterControlViewController: UIViewController {
         guard let textWateringValue = waterAmountInput.text else { return }
         guard let wateringValue = Int(textWateringValue) else { return }
     
+        let message = createMessage(id: self.potId, value: wateringValue, controlType: manualModeControlType, supplyType: manualModeSupplyType)
+        
         if manualModeControlType == .direct {
-            print("즉시 실행")
+            print("즉시. 실행")
             if manualModeSupplyType == .time {
                 ServerAPI.C_M_001(potId: self.potId, controlTime: wateringValue)
             }
@@ -195,6 +199,8 @@ class waterControlViewController: UIViewController {
             }
             print("예약 실행 ---> \(setReservationTime)")
         }
+        
+        presentAlert(message: message)
 
     }
     
@@ -327,6 +333,39 @@ class waterControlViewController: UIViewController {
             }
         }
         
+    }
+    
+    func presentAlert(message: String) {
+        let alert = UIAlertController(title: "급수 설정 완료", message: message, preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { action in
+        }
+        
+        alert.addAction(okAction)
+        present(alert, animated: false, completion: nil)
+    }
+    
+    func createMessage(id: Int, value: Int, controlType: ControlType, supplyType: SupplyType) -> String {
+        var message: String
+        
+        switch controlType {
+        case .direct:
+            switch supplyType {
+            case .time:
+                message = "No.\(id) 화분에 즉시 \(value)초 만큼 급수하였습니다."
+            case .amount:
+                message = "No.\(id) 화분에 즉시 \(value)mL 만큼 급수하였습니다."
+            }
+        case .reservation:
+            switch supplyType {
+            case .time:
+                message = "No.\(id) 화분에 \(value)초 만큼 급수를 예약 하였습니다."
+            case .amount:
+                message = "No.\(id) 화분에 \(value)mL 만큼 급수를 예약 하였습니다."
+            }
+
+        }
+        
+        return message
     }
     
 }

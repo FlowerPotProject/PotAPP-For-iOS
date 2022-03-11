@@ -105,7 +105,6 @@ class detailViewController: UIViewController {
             destinationVC?.updateId(id: id)
         }
     }
-
 }
 
 extension detailViewController {

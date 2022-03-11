@@ -94,9 +94,13 @@ extension HwabunViewController: UICollectionViewDelegate {
     
     @objc func refreshPage(_ sender: UIRefreshControl) {
         print("화면 갱신")
-        potViewModel.loadPot(collectionView: homeCollectionView)
-        sender.endRefreshing()
-        print("완료")
+        DispatchQueue.global(qos: .userInitiated).sync {
+            potViewModel.loadPot(collectionView: homeCollectionView)
+        }
+        DispatchQueue.global(qos: .userInitiated).sync {
+            sender.endRefreshing()
+            print("완료")
+        }
     }
 }
 
