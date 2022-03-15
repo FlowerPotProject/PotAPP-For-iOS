@@ -8,8 +8,6 @@
 import UIKit
 
 class reservePageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
-    
-    
     var completeHandler: ((Int) -> ())?
     
     let viewList: [UIViewController] = {
@@ -43,10 +41,13 @@ class reservePageViewController: UIPageViewController, UIPageViewControllerDeleg
     }
     
     func setViewcontrollersFromIndex(index : Int){
-            if index < 0 && index >= viewList.count { return }
-            self.setViewControllers([viewList[index]], direction: .forward, animated: true, completion: nil)
-            completeHandler?(currentIndex)
-        }
+        if index < 0 && index >= viewList.count { return }
+        
+        let direction: NavigationDirection = index == 0 ? NavigationDirection.reverse : NavigationDirection.forward
+        
+        self.setViewControllers([viewList[index]], direction: direction, animated: true, completion: nil)
+        completeHandler?(currentIndex)
+    }
 
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

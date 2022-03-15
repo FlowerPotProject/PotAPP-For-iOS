@@ -13,10 +13,12 @@ class HwabunViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        potViewModel.loadPot(collectionView: homeCollectionView)
         homeCollectionView.refreshControl = UIRefreshControl()
         homeCollectionView.refreshControl?.addTarget(self, action: #selector(refreshPage(_:)), for: .valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        potViewModel.loadPot(collectionView: homeCollectionView)
     }
 }
 
@@ -78,8 +80,9 @@ extension HwabunViewController: UICollectionViewDelegate {
             let vc = segue.destination as? detailViewController
             if let index = sender as? Int {
                 let potInfo = potViewModel.loadPotIndex(index)
+                let potReserveList = potViewModel.reserveListById(id: potInfo.potId)
                 
-                vc?.viewModel.update(model: potInfo)
+                vc?.viewModel.update(model: potInfo, reserveList: potReserveList)
             }
         }
     }

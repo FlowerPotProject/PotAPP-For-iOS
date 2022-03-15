@@ -25,7 +25,7 @@ class ServerAPI {
     
 // MARK: HOME - GET /view/home
     // 서버에 저장된 모든 화분 정보 로드
-    static func load(completion: @escaping ([potInfo]) -> Void) {
+    static func load(completion: @escaping ([potInfo], reserveList) -> Void) {
         // API URL 저장
         let session = URLSession(configuration: .default)
         let requestURL = makeURLRequest(api: "/view/home", isPost: false)
@@ -41,14 +41,14 @@ class ServerAPI {
             
             // 데이터가 유효한지 확인
             guard let resultData = data else {
-                completion([])
+                completion([], reserveList(waterReserve: [], lightReserve: []))
                 return
             }
             let pots = ServerAPI.parseData(resultData)
-            
+            let list = ServerAPI.parseReserveData(resultData)
             // 데이터를 로드한 후 실행할 클로저
-            print(pots)
-            completion(pots)
+            print("\(pots) \(list)")
+            completion(pots, list)
         }
         
         dataTask.resume()
@@ -223,6 +223,19 @@ class ServerAPI {
         } catch let error {
             print("parsing error : \(error)")
             return []
+        }
+    }
+    
+    static func parseReserveData(_ data: Data) -> reserveList {
+        let decoder = JSONDecoder()
+        
+        do {
+            let response = try decoder.decode(Response.self, from: data)
+            let list = response.reserveList
+            return list
+        } catch let error {
+            print("parsing error : \(error)")
+            return reserveList(waterReserve: [], lightReserve: [])
         }
     }
     

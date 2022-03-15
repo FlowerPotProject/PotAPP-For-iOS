@@ -12,7 +12,6 @@ class reserveListViewController: UIViewController {
     @IBOutlet weak var waterButton: UIButton!
     @IBOutlet weak var lightButton: UIButton!
     @IBOutlet weak var btnStackView: UIStackView!
-    
     var btnList: [UIButton] = []
     
     var currentIndex: Int = 0 {

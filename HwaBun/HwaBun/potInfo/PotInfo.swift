@@ -13,19 +13,16 @@ class PotManager {
     static var lastId: Int = 0
     
     var pots: [potInfo] = []
+    var reserveList: reserveList = .init(waterReserve: [], lightReserve: [])
     
     func createPot() {
-//        let pot1 = PotInfo(id: 0, humidInfo: 18, tempInfo: 10, soilHumidInfo: 40, isWatering: true, isMainPot: false)
-//        let pot2 = PotInfo(id: 1, humidInfo: 30, tempInfo: 25, soilHumidInfo: 29, isWatering: false, isLighting: true, isMainPot: false)
-//        let pot3 = PotInfo(id: 2, humidInfo: 40, tempInfo: 39, soilHumidInfo: 15, isWatering: false, isMainPot: true)
-//        let pot4 = PotInfo(id: 3, humidInfo: 20, tempInfo: 22, soilHumidInfo: 67, isWatering: true, isMainPot: false)
-//
-//        self.pots = [pot1, pot2, pot3, pot4]
+
     }
     
     func loadData(collectionView: UICollectionView) {
-        ServerAPI.load { pots in
+        ServerAPI.load { pots, list in
             self.pots = pots
+            self.reserveList = list
             DispatchQueue.main.sync {
                 collectionView.reloadData()
             }
@@ -39,6 +36,10 @@ class PotViewModel {
     
     var pots: [potInfo] {
         return manager.pots
+    }
+    
+    var lists: reserveList {
+        return manager.reserveList
     }
     
     var mainPot: potInfo {
@@ -63,6 +64,13 @@ class PotViewModel {
     
     func loadPotIndex(_ index: Int) -> potInfo {
         return pots[index]
+    }
+    
+    func reserveListById(id: Int) -> reserveList {
+        let waterReserveList = lists.waterReserve.filter { $0.potId == (id) }
+        let lightReserveList = lists.lightReserve.filter { $0.potId == (id) }
+        
+        return reserveList(waterReserve: waterReserveList, lightReserve: lightReserveList)
     }
 }
 

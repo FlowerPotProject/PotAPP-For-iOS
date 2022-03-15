@@ -32,7 +32,6 @@ class detailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         updateUI()
     }
 
@@ -107,18 +106,13 @@ class detailViewController: UIViewController {
     }
 }
 
-extension detailViewController {
-    @IBAction func unwindAndRefresh(segue : UIStoryboardSegue) {
-        
-    }
-}
-
-
 class detailViewModel {
     var potInfo: potInfo?
-
-    func update(model: potInfo) {
+    var reserveList: reserveList?
+    
+    func update(model: potInfo, reserveList: reserveList) {
         potInfo = model
+        self.reserveList = reserveList
     }
 }
 
