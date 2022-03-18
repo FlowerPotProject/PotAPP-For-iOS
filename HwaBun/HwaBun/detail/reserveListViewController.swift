@@ -13,6 +13,11 @@ class reserveListViewController: UIViewController {
     @IBOutlet weak var lightButton: UIButton!
     @IBOutlet weak var btnStackView: UIStackView!
     var btnList: [UIButton] = []
+    let viewModel = reserveViewModel()
+    
+    func updateViewModel(list: reserveList) {
+        viewModel.reserveList = list
+    }
     
     var currentIndex: Int = 0 {
         didSet {
@@ -46,7 +51,7 @@ class reserveListViewController: UIViewController {
         if segue.identifier == "pageView" {
             guard let vc = segue.destination as? reservePageViewController else { return }
             reservePageViewController = vc
-            
+            reservePageViewController.updateViewModel(list: viewModel.reserveList)
             reservePageViewController.completeHandler = { (result) in
                 self.currentIndex = result
             }
@@ -74,4 +79,8 @@ class reserveListViewController: UIViewController {
         reservePageViewController.setViewcontrollersFromIndex(index: 1)
     }
 
+}
+
+class reserveViewModel {
+    var reserveList: reserveList = .init(waterReserve: [], lightReserve: [])
 }

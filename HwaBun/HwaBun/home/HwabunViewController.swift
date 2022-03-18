@@ -7,8 +7,10 @@
 
 import UIKit
 
+
 class HwabunViewController: UIViewController, UIGestureRecognizerDelegate {
     let potViewModel = PotViewModel()
+    
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     override func viewDidLoad() {

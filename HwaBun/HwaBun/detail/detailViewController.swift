@@ -88,6 +88,9 @@ class detailViewController: UIViewController {
         if segue.identifier == "reserveList" {
             let destinationVC = segue.destination as? reserveListViewController
             reserveListViewController = destinationVC
+            
+            guard let list = viewModel.reserveList else { return }
+            reserveListViewController.updateViewModel(list: list)
         }
         
         if segue.identifier == "moveWatering" {
@@ -109,6 +112,10 @@ class detailViewController: UIViewController {
 class detailViewModel {
     var potInfo: potInfo?
     var reserveList: reserveList?
+    var potId: Int {
+        guard let potId = potInfo?.potId else { return 0 }
+        return potId
+    }
     
     func update(model: potInfo, reserveList: reserveList) {
         potInfo = model

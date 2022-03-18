@@ -108,7 +108,7 @@ struct waterReserve: Codable {
     let reserveId: Int
     let potId: Int
     let startTime: String
-    let controlTime: Int
+    let flux: Int
 }
 
 struct lightReserve: Codable {

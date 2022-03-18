@@ -9,6 +9,7 @@ import UIKit
 
 class wateringReservationListViewController: UIViewController {
     let viewModel = wateringReserveViewModel()
+    @IBOutlet weak var waterReservationTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,10 @@ class wateringReservationListViewController: UIViewController {
     
     func updateList(list: [waterReserve]) {
         viewModel.waterReserveList = list
+        DispatchQueue.main.async {
+            print("updateList ====> \(self.viewModel.waterReserveList)")
+            self.waterReservationTable.reloadData()
+        }
     }
 }
 
@@ -36,12 +41,13 @@ extension wateringReservationListViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 extension wateringReservationListViewController: UITableViewDelegate {
-
+    func sendData(data: [waterReserve]) {
+        print("ddddd")
+        updateList(list: data)
+    }
 }
 
 class WaterReserveCell: UITableViewCell {
@@ -50,9 +56,22 @@ class WaterReserveCell: UITableViewCell {
     @IBOutlet weak var modeTypeLabel: UILabel!
     
     func updateUI(reserve: waterReserve) {
-        timeLabel.text = "\(reserve.startTime)"
-        flowLabel.text = "\(reserve.controlTime)초"
+        let startTime = decodeDate(date: reserve.startTime)
+        
+        timeLabel.text = "\(startTime)"
+        flowLabel.text = "\(reserve.flux)mL"
         modeTypeLabel.text = "수동"
+    }
+    
+    func decodeDate(date: String) -> String {
+        let monthRange = date.index(date.startIndex, offsetBy: 5)...date.index(date.startIndex, offsetBy: 6)
+        let dayRange = date.index(date.startIndex, offsetBy: 8)...date.index(date.startIndex, offsetBy: 9)
+        let timeRange = date.index(date.startIndex, offsetBy: 11)...date.index(date.startIndex, offsetBy: 15)
+        
+        let returnDate = "\(date[monthRange]).\(date[dayRange]) \(date[timeRange])"
+        
+        print(returnDate)
+        return returnDate
     }
     
 }

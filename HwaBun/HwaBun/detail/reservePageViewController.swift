@@ -9,6 +9,11 @@ import UIKit
 
 class reservePageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     var completeHandler: ((Int) -> ())?
+    let pageViewModel = reservePageViewModel()
+    
+    func updateViewModel(list: reserveList) {
+        pageViewModel.reserveList = list
+    }
     
     let viewList: [UIViewController] = {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -38,6 +43,12 @@ class reservePageViewController: UIPageViewController, UIPageViewControllerDeleg
         if let firstvc = viewList.first {
             self.setViewControllers([firstvc], direction: .forward, animated: true, completion: nil)
         }
+        updateViewController()
+    }
+    
+    func updateViewController() {
+        let vc = viewList[0] as! wateringReservationListViewController
+        vc.updateList(list: pageViewModel.reserveList.waterReserve)
     }
     
     func setViewcontrollersFromIndex(index : Int){
@@ -83,4 +94,8 @@ class reservePageViewController: UIPageViewController, UIPageViewControllerDeleg
             completeHandler?(currentIndex)
         }
     }
+}
+
+class reservePageViewModel {
+    var reserveList: reserveList = .init(waterReserve: [], lightReserve: [])
 }
