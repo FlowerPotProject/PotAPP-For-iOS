@@ -28,6 +28,7 @@
 		3D6EFBD227C776360048C297 /* waterControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD127C776360048C297 /* waterControlViewController.swift */; };
 		3D6EFBD627D05FE70048C297 /* lightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */; };
 		3D6EFBDC27D1DEBA0048C297 /* serverAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBDB27D1DEBA0048C297 /* serverAPI.swift */; };
+		3D972416287E63740015A5B7 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 3D972415287E63740015A5B7 /* Charts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D972416287E63740015A5B7 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +237,9 @@
 			dependencies = (
 			);
 			name = HwaBun;
+			packageProductDependencies = (
+				3D972415287E63740015A5B7 /* Charts */,
+			);
 			productName = HwaBun;
 			productReference = 3D32BF9527BCF567004BC3F9 /* HwaBun.app */;
 			productType = "com.apple.product-type.application";
@@ -307,6 +312,9 @@
 				Base,
 			);
 			mainGroup = 3D32BF8C27BCF567004BC3F9;
+			packageReferences = (
+				3D972414287E63740015A5B7 /* XCRemoteSwiftPackageReference "Charts" */,
+			);
 			productRefGroup = 3D32BF9627BCF567004BC3F9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -712,6 +720,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3D972414287E63740015A5B7 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3D972415287E63740015A5B7 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D972414287E63740015A5B7 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D32BF8D27BCF567004BC3F9 /* Project object */;
 }
