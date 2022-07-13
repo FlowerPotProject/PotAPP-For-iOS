@@ -29,6 +29,7 @@
 		3D6EFBD627D05FE70048C297 /* lightControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */; };
 		3D6EFBDC27D1DEBA0048C297 /* serverAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6EFBDB27D1DEBA0048C297 /* serverAPI.swift */; };
 		3D972416287E63740015A5B7 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 3D972415287E63740015A5B7 /* Charts */; };
+		3D97241A287E65690015A5B7 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D972419287E65690015A5B7 /* GraphViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		3D6EFBD127C776360048C297 /* waterControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = waterControlViewController.swift; sourceTree = "<group>"; };
 		3D6EFBD527D05FE70048C297 /* lightControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lightControlViewController.swift; sourceTree = "<group>"; };
 		3D6EFBDB27D1DEBA0048C297 /* serverAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = serverAPI.swift; sourceTree = "<group>"; };
+		3D972419287E65690015A5B7 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				3D26F08527C3263E00FE6D54 /* detailViewController.swift */,
 				3D26F08C27C371C300FE6D54 /* reserveListViewController.swift */,
 				3D26F08E27C372C100FE6D54 /* reservePageViewController.swift */,
+				3D972419287E65690015A5B7 /* GraphViewController.swift */,
 				3D26F09027C3730900FE6D54 /* pages */,
 			);
 			path = detail;
@@ -363,6 +366,7 @@
 				3D32BFC927BDF12C004BC3F9 /* PotInfo.swift in Sources */,
 				3D26F08027BDF9CF00FE6D54 /* LogViewController.swift in Sources */,
 				3D32BF9D27BCF567004BC3F9 /* HwabunViewController.swift in Sources */,
+				3D97241A287E65690015A5B7 /* GraphViewController.swift in Sources */,
 				3D26F08427BE309300FE6D54 /* HomeCollectionHeaderView.swift in Sources */,
 				3D6EFBD627D05FE70048C297 /* lightControlViewController.swift in Sources */,
 				3D32BF9927BCF567004BC3F9 /* AppDelegate.swift in Sources */,

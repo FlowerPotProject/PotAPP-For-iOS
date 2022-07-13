@@ -300,6 +300,22 @@
             </objects>
             <point key="canvasLocation" x="1048" y="138"/>
         </scene>
+        <!--그래프 보기-->
+        <scene sceneID="kbk-nl-shV">
+            <objects>
+                <viewController storyboardIdentifier="GraphViewController" id="hqA-Wp-YSX" customClass="GraphViewController" customModule="HwaBun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="939-g8-9Zd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="FAQ-jW-hgO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="그래프 보기" id="gc0-f9-c9T"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AhT-MT-zw7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="380" y="1015"/>
+        </scene>
         <!--상세 정보-->
         <scene sceneID="bpr-OQ-8wS">
             <objects>
@@ -359,13 +375,23 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1E-po-5kh">
+                                        <rect key="frame" x="-3" y="-4" width="387" height="68"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title=""/>
+                                        <connections>
+                                            <segue destination="hqA-Wp-YSX" kind="show" id="rXp-uu-0Zo"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="UXp-Pi-7Ce" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="5Eo-TO-gpa"/>
+                                    <constraint firstItem="S1E-po-5kh" firstAttribute="width" secondItem="pTJ-JW-FDd" secondAttribute="width" multiplier="0.175393" id="5SM-Cc-o3r"/>
                                     <constraint firstItem="UXp-Pi-7Ce" firstAttribute="leading" secondItem="pTJ-JW-FDd" secondAttribute="leading" constant="15" id="8He-hL-wPE"/>
                                     <constraint firstAttribute="height" constant="60" id="ATB-af-GU0"/>
                                     <constraint firstItem="dqe-zI-zVV" firstAttribute="leading" secondItem="YaN-rv-ccF" secondAttribute="trailing" constant="10" id="DI1-cA-iWo"/>
+                                    <constraint firstItem="S1E-po-5kh" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="DqY-qu-16h"/>
                                     <constraint firstAttribute="trailing" secondItem="dqe-zI-zVV" secondAttribute="trailing" constant="15" id="KRC-5h-dEs"/>
                                     <constraint firstItem="dqe-zI-zVV" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="Kfd-KZ-gSO"/>
                                     <constraint firstItem="FxT-8u-UKm" firstAttribute="leading" secondItem="Ca3-2F-NIR" secondAttribute="trailing" constant="10" id="MXt-ry-sAI"/>
@@ -373,7 +399,9 @@
                                     <constraint firstItem="Ca3-2F-NIR" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="dnA-O0-BZK"/>
                                     <constraint firstItem="YaN-rv-ccF" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="iGw-ms-Dsy"/>
                                     <constraint firstItem="FxT-8u-UKm" firstAttribute="centerX" secondItem="pTJ-JW-FDd" secondAttribute="centerX" constant="15" id="oVr-N6-HEg"/>
+                                    <constraint firstItem="S1E-po-5kh" firstAttribute="centerX" secondItem="pTJ-JW-FDd" secondAttribute="centerX" id="qws-B3-C8Z"/>
                                     <constraint firstItem="hFd-n2-d6x" firstAttribute="centerY" secondItem="UXp-Pi-7Ce" secondAttribute="centerY" id="rbg-KR-ni9"/>
+                                    <constraint firstItem="S1E-po-5kh" firstAttribute="height" secondItem="pTJ-JW-FDd" secondAttribute="height" multiplier="0.516667" id="rnQ-DR-A4c"/>
                                     <constraint firstItem="FxT-8u-UKm" firstAttribute="centerY" secondItem="Ca3-2F-NIR" secondAttribute="centerY" id="wcS-XN-xXJ"/>
                                 </constraints>
                             </view>
