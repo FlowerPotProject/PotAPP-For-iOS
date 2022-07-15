@@ -132,3 +132,25 @@ struct paramsDetail: Codable {
     let flux: Int
     let startTime: String
 }
+
+// MARK: Graph Data
+struct GraphData: Codable {
+    let temp: [tempData]
+    let humi: [humiData]
+    let soilHumi: [soilHumiData]
+}
+
+struct tempData: Codable {
+    let time: String
+    let val: Double
+}
+
+struct humiData: Codable {
+    let time: String
+    let val: Double
+}
+
+struct soilHumiData: Codable {
+    let time: String
+    let val: Double
+}

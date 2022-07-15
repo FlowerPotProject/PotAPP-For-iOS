@@ -55,6 +55,33 @@ class ServerAPI {
 
     }
     
+    // 그래프 데이터 가져오기
+    static func loadGraghData(potId: Int, completion: @escaping (GraphData) -> Void) {
+        let session = URLSession(configuration: .default)
+        let requestURL = URLRequest(url: URL(string: "http://203.250.32.29:3000/view/graph/day/\(potId)")!)
+        print("-----> 리퀘스트 유알엘 \(requestURL)")
+        // 데이터 테스크 생성
+        let dataTask = session.dataTask(with: requestURL) { data, response, error in
+            // 오류코드 검사
+            guard error == nil,
+                  let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                  successRange.contains(statusCode)
+            else { return }
+            
+            // 데이터가 유효한지 확인
+            guard let resultData = data else {
+                return
+            }
+            let graphData = ServerAPI.parseDataGraph(potId: potId, resultData)
+            
+            // 데이터를 로드한 후 실행할 클로저
+            print(graphData)
+            completion(graphData)
+        }
+        
+        dataTask.resume()
+    }
+    
     // 해당 화분의 정보만 로드
     static func loadOnlyPot(potId: Int, completion: @escaping (potInfo) -> Void) {
         let session = URLSession(configuration: .default)
@@ -253,6 +280,20 @@ class ServerAPI {
         } catch let error {
             print("parsing error : \(error)")
             return potInfo(potId: -1, sensorData: .init(temp: -1, humi: -1, soilHumi: -1), stateData: .init(isWatering: -1, isLighting: -1, isAuto: -1, isMainPot: -1))
+        }
+    }
+    
+    // 그래프 데이터 파싱
+    static func parseDataGraph(potId: Int, _ data: Data) -> GraphData {
+        let decoder = JSONDecoder()
+        
+        do {
+            let response = try decoder.decode(GraphData.self, from: data)
+            
+            return response
+        } catch let error {
+            print("parsing error : \(error)")
+            return GraphData(temp: [], humi: [], soilHumi: [])
         }
     }
 }
