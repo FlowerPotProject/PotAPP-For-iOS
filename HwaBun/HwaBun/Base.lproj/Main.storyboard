@@ -311,6 +311,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="그래프 보기" id="gc0-f9-c9T"/>
+                    <connections>
+                        <outlet property="View" destination="939-g8-9Zd" id="VWt-wW-ZnR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AhT-MT-zw7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -375,8 +378,8 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1E-po-5kh">
-                                        <rect key="frame" x="-3" y="-4" width="387" height="68"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1E-po-5kh">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="60"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <connections>
@@ -386,22 +389,22 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="S1E-po-5kh" secondAttribute="bottom" id="0Vo-qE-eYv"/>
                                     <constraint firstItem="UXp-Pi-7Ce" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="5Eo-TO-gpa"/>
-                                    <constraint firstItem="S1E-po-5kh" firstAttribute="width" secondItem="pTJ-JW-FDd" secondAttribute="width" multiplier="0.175393" id="5SM-Cc-o3r"/>
                                     <constraint firstItem="UXp-Pi-7Ce" firstAttribute="leading" secondItem="pTJ-JW-FDd" secondAttribute="leading" constant="15" id="8He-hL-wPE"/>
                                     <constraint firstAttribute="height" constant="60" id="ATB-af-GU0"/>
                                     <constraint firstItem="dqe-zI-zVV" firstAttribute="leading" secondItem="YaN-rv-ccF" secondAttribute="trailing" constant="10" id="DI1-cA-iWo"/>
-                                    <constraint firstItem="S1E-po-5kh" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="DqY-qu-16h"/>
+                                    <constraint firstItem="S1E-po-5kh" firstAttribute="leading" secondItem="pTJ-JW-FDd" secondAttribute="leading" id="HrZ-3W-nWH"/>
                                     <constraint firstAttribute="trailing" secondItem="dqe-zI-zVV" secondAttribute="trailing" constant="15" id="KRC-5h-dEs"/>
                                     <constraint firstItem="dqe-zI-zVV" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="Kfd-KZ-gSO"/>
                                     <constraint firstItem="FxT-8u-UKm" firstAttribute="leading" secondItem="Ca3-2F-NIR" secondAttribute="trailing" constant="10" id="MXt-ry-sAI"/>
+                                    <constraint firstAttribute="trailing" secondItem="S1E-po-5kh" secondAttribute="trailing" id="N3r-Qz-CmI"/>
                                     <constraint firstItem="hFd-n2-d6x" firstAttribute="leading" secondItem="UXp-Pi-7Ce" secondAttribute="trailing" constant="10" id="VKr-xR-zfa"/>
                                     <constraint firstItem="Ca3-2F-NIR" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="dnA-O0-BZK"/>
+                                    <constraint firstItem="S1E-po-5kh" firstAttribute="top" secondItem="pTJ-JW-FDd" secondAttribute="top" id="eJT-Rx-vUI"/>
                                     <constraint firstItem="YaN-rv-ccF" firstAttribute="centerY" secondItem="pTJ-JW-FDd" secondAttribute="centerY" id="iGw-ms-Dsy"/>
                                     <constraint firstItem="FxT-8u-UKm" firstAttribute="centerX" secondItem="pTJ-JW-FDd" secondAttribute="centerX" constant="15" id="oVr-N6-HEg"/>
-                                    <constraint firstItem="S1E-po-5kh" firstAttribute="centerX" secondItem="pTJ-JW-FDd" secondAttribute="centerX" id="qws-B3-C8Z"/>
                                     <constraint firstItem="hFd-n2-d6x" firstAttribute="centerY" secondItem="UXp-Pi-7Ce" secondAttribute="centerY" id="rbg-KR-ni9"/>
-                                    <constraint firstItem="S1E-po-5kh" firstAttribute="height" secondItem="pTJ-JW-FDd" secondAttribute="height" multiplier="0.516667" id="rnQ-DR-A4c"/>
                                     <constraint firstItem="FxT-8u-UKm" firstAttribute="centerY" secondItem="Ca3-2F-NIR" secondAttribute="centerY" id="wcS-XN-xXJ"/>
                                 </constraints>
                             </view>
