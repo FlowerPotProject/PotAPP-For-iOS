@@ -307,17 +307,75 @@
                     <view key="view" contentMode="scaleToFill" id="939-g8-9Zd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="주간/온도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHF-ju-H9a">
+                                <rect key="frame" x="163" y="199" width="88.5" height="27"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vt2-SL-jaJ">
+                                <rect key="frame" x="334" y="118" width="60" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="F9d-18-64e"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="확인"/>
+                                <connections>
+                                    <action selector="submitButtonAction:" destination="hqA-Wp-YSX" eventType="touchUpInside" id="gem-eI-UZg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ae-pX-cvq">
+                                <rect key="frame" x="15" y="118" width="141" height="31"/>
+                                <menu key="menu" id="Es4-Ek-QNI">
+                                    <children>
+                                        <command title="일간" id="x58-2U-gAB"/>
+                                        <command title="주간" id="TLd-Mb-zKa"/>
+                                        <command title="월간" id="Q6c-ew-kNP"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="주간"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SwF-Ua-DQM">
+                                <rect key="frame" x="171" y="118" width="141" height="31"/>
+                                <menu key="menu" id="57w-Lx-9dr">
+                                    <children>
+                                        <command title="토양습도" id="LFJ-x0-D8r"/>
+                                        <command title="습도" id="iSg-Rs-p1Z"/>
+                                        <command title="온도" id="qEA-MN-jBo"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="온도"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FAQ-jW-hgO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3ae-pX-cvq" firstAttribute="leading" secondItem="FAQ-jW-hgO" secondAttribute="leading" constant="15" id="3VW-o4-H9F"/>
+                            <constraint firstItem="SwF-Ua-DQM" firstAttribute="leading" secondItem="3ae-pX-cvq" secondAttribute="trailing" constant="15" id="INl-xl-448"/>
+                            <constraint firstItem="SwF-Ua-DQM" firstAttribute="centerY" secondItem="3ae-pX-cvq" secondAttribute="centerY" id="LqG-A6-a0G"/>
+                            <constraint firstItem="3ae-pX-cvq" firstAttribute="top" secondItem="FAQ-jW-hgO" secondAttribute="top" constant="30" id="MXe-ju-mL8"/>
+                            <constraint firstItem="pHF-ju-H9a" firstAttribute="top" secondItem="FAQ-jW-hgO" secondAttribute="top" constant="111" id="Oht-uf-u95"/>
+                            <constraint firstItem="vt2-SL-jaJ" firstAttribute="centerY" secondItem="SwF-Ua-DQM" secondAttribute="centerY" id="Xpd-zg-T5H"/>
+                            <constraint firstItem="FAQ-jW-hgO" firstAttribute="trailing" secondItem="vt2-SL-jaJ" secondAttribute="trailing" constant="20" id="lbr-cm-zoH"/>
+                            <constraint firstItem="vt2-SL-jaJ" firstAttribute="leading" secondItem="SwF-Ua-DQM" secondAttribute="trailing" constant="22" id="pAs-rD-mzb"/>
+                            <constraint firstItem="3ae-pX-cvq" firstAttribute="width" secondItem="SwF-Ua-DQM" secondAttribute="width" id="pxU-kU-na0"/>
+                            <constraint firstItem="pHF-ju-H9a" firstAttribute="centerX" secondItem="FAQ-jW-hgO" secondAttribute="centerX" id="veg-zi-W4C"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="그래프 보기" id="gc0-f9-c9T"/>
                     <connections>
                         <outlet property="View" destination="939-g8-9Zd" id="VWt-wW-ZnR"/>
+                        <outlet property="chartTitleLabel" destination="pHF-ju-H9a" id="7gB-nQ-5mj"/>
+                        <outlet property="dataTypeSelectButton" destination="SwF-Ua-DQM" id="l70-n7-Ijc"/>
+                        <outlet property="periodicalModeSelectButton" destination="3ae-pX-cvq" id="nbI-bw-OOL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AhT-MT-zw7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380" y="1015"/>
+            <point key="canvasLocation" x="379.71014492753625" y="1014.5089285714286"/>
         </scene>
         <!--상세 정보-->
         <scene sceneID="bpr-OQ-8wS">
