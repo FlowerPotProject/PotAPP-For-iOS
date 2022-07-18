@@ -14,12 +14,11 @@ class GraphViewController: UIViewController, ChartViewDelegate{
     
     var lineChart = LineChartView()
     
-    var soilHumiTime: [String] = []
-    var soilHumiVal: [Double] = []
-    var humiTime: [String] = []
-    var humiVal: [Double] = []
-    var tempTime: [String] = []
-    var tempVal: [Double] = []
+    var soilHumi: [soilHumiData] = []
+    var humi: [humiData] = []
+    var temp: [tempData] = []
+    
+    var controlLog: [String] = []
     
     @IBOutlet weak var periodicalModeSelectButton: UIButton!
     @IBOutlet weak var dataTypeSelectButton: UIButton!
@@ -44,6 +43,7 @@ class GraphViewController: UIViewController, ChartViewDelegate{
         super.viewDidLayoutSubviews()
     }
     
+// MARK: 차트 세팅
     func drawChart(type: dataType) {
         // 차트의 레이아웃 지정
         lineChart.frame = CGRect(x: 0, y:0,
@@ -59,26 +59,29 @@ class GraphViewController: UIViewController, ChartViewDelegate{
         
         var entries = [ChartDataEntry]()
         if type == .soilHumi {
-            for x in 0..<soilHumiTime.count {
-                entries.append(ChartDataEntry(x: Double(x), y: soilHumiVal[x]))
+            for x in 0..<soilHumi.count {
+                entries.append(ChartDataEntry(x: Double(x), y: soilHumi[x].val))
             }
-
+            // soilHumi/daily 일 때 물 주는 로그도 같이 띄움
+            if self.periodicalType == .daily {
+                
+            }
         }
         else if type == .temp {
-            for x in 0..<tempTime.count {
-                entries.append(ChartDataEntry(x: Double(x), y: tempVal[x]))
+            for x in 0..<temp.count {
+                entries.append(ChartDataEntry(x: Double(x), y: temp[x].val))
             }
         }
         else {
-            for x in 0..<humiTime.count {
-                entries.append(ChartDataEntry(x: Double(x), y: humiVal[x]))
+            for x in 0..<humi.count {
+                entries.append(ChartDataEntry(x: Double(x), y: humi[x].val))
             }
             
         }
 
         let set = LineChartDataSet(entries: entries)
         set.label = chartDataTypeNames[type.rawValue]
-        set.colors = [.systemBlue]
+        set.colors = setChartColor(type: type)
         set.highlightEnabled = false // 선택 안되게
         set.drawCirclesEnabled = false // 동그라미 없애기
         set.mode = .cubicBezier // 애니메이션 형태
@@ -86,13 +89,49 @@ class GraphViewController: UIViewController, ChartViewDelegate{
         let data = LineChartData(dataSet: set)
         data.setDrawValues(false)
         lineChart.xAxis.labelPosition = .bottom // x축 레이블 위치 아래로
-        lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: soilHumiTime) // x축 레이블 포메터 지정
+        lineChart.xAxis.valueFormatter = setIndexAxisValue(type: type) // x축 레이블 포메터 지정
         lineChart.rightAxis.enabled = false // 우측 레이블 제거
         lineChart.animate(xAxisDuration: 0.3) // 애니메이션
         lineChart.data = data
         view.addSubview(lineChart)
     }
     
+    // 데이터 타입에 맞는 차트 색 선정 메서드
+    func setChartColor(type: dataType) -> [UIColor] {
+        switch type {
+        case .temp:
+            return [UIColor.red]
+        case .humi:
+            return [UIColor.blue]
+        case .soilHumi:
+            return [UIColor.systemGreen]
+        }
+    }
+    
+    // 시간 레이블 설정 메서드
+    func setIndexAxisValue(type: dataType) -> IndexAxisValueFormatter {
+        var time: [String] = []
+        
+        switch type {
+        case .temp:
+            for data in temp {
+                time.append(data.time)
+            }
+            return IndexAxisValueFormatter(values: time)
+        case .humi:
+            for data in humi {
+                time.append(data.time)
+            }
+            return IndexAxisValueFormatter(values: time)
+        case .soilHumi:
+            for data in soilHumi {
+                time.append(data.time)
+            }
+            return IndexAxisValueFormatter(values: time)
+        }
+    }
+
+// MARK: 데이터 관련 세팅
     enum dataType: Int {
         case soilHumi = 0
         case humi = 1
@@ -150,29 +189,13 @@ class GraphViewController: UIViewController, ChartViewDelegate{
     func loadData() {
         ServerAPI.loadGraghData(potId: 1, periodical: self.periodicalType.rawValue) { [self] GraphData in
             
-            self.soilHumiTime = []
-            self.soilHumiVal = []
-            self.humiTime = []
-            self.humiVal = []
-            self.tempTime = []
-            self.tempVal = []
+            self.soilHumi = GraphData.soilHumi
+            self.temp = GraphData.temp
+            self.humi = GraphData.humi
+            let controlLog: [log] = GraphData.log
             
-            let soilHumiData: [soilHumiData] = GraphData.soilHumi
-            let humiData: [humiData] = GraphData.humi
-            let tempData: [tempData] = GraphData.temp
-            
-            // 데이터 삽입하기
-            for data in soilHumiData {
-                self.soilHumiTime.append(data.time)
-                self.soilHumiVal.append(data.val)
-            }
-            for data in humiData {
-                self.humiTime.append(data.time)
-                self.humiVal.append(data.val)
-            }
-            for data in tempData {
-                self.tempTime.append(data.time)
-                self.tempVal.append(data.val)
+            for data in controlLog {
+                self.controlLog.append(data.time)
             }
             
             var periodicalType: String

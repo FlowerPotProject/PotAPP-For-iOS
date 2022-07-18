@@ -138,6 +138,7 @@ struct GraphData: Codable {
     let temp: [tempData]
     let humi: [humiData]
     let soilHumi: [soilHumiData]
+    let log: [log]
 }
 
 struct tempData: Codable {
@@ -153,4 +154,8 @@ struct humiData: Codable {
 struct soilHumiData: Codable {
     let time: String
     let val: Double
+}
+
+struct log: Codable {
+    let time: String
 }

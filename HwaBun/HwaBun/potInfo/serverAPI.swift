@@ -292,7 +292,7 @@ class ServerAPI {
             return response
         } catch let error {
             print("parsing error : \(error)")
-            return GraphData(temp: [], humi: [], soilHumi: [])
+            return GraphData(temp: [], humi: [], soilHumi: [], log: [])
         }
     }
 }
