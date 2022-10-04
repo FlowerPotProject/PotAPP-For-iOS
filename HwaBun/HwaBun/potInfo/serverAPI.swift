@@ -58,7 +58,7 @@ class ServerAPI {
     // 그래프 데이터 가져오기
     static func loadGraghData(potId: Int, periodical: String, completion: @escaping (GraphData) -> Void) {
         let session = URLSession(configuration: .default)
-        let requestURL = URLRequest(url: URL(string: "http://203.250.32.29:3000/view/graph/\(periodical)/\(potId)")!)
+        let requestURL = URLRequest(url: URL(string: "http://192.168.10.3:3000/view/graph/\(periodical)/\(potId)")!)
         print("-----> 리퀘스트 유알엘 \(requestURL)")
         // 데이터 테스크 생성
         let dataTask = session.dataTask(with: requestURL) { data, response, error in
@@ -208,7 +208,7 @@ class ServerAPI {
 //MARK: Method for Post Tasks
     // requestURL만들기
     static func makeURLRequest(api: String, isPost: Bool) -> URLRequest {
-        var requestURL = URLRequest(url: URL(string: "http://203.250.32.29:3000\(api)")!)
+        var requestURL = URLRequest(url: URL(string: "http://192.168.10.3:3000\(api)")!)
         if isPost {
             requestURL.httpMethod = "POST"
             requestURL.setValue("application/json", forHTTPHeaderField: "Content-Type")

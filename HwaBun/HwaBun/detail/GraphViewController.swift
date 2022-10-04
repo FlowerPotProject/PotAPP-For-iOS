@@ -99,7 +99,7 @@ class GraphViewController: UIViewController, ChartViewDelegate{
         barSet.colors = [.systemBlue]
         barSet.highlightEnabled = false // 선택 안되게
         let barData = BarChartData(dataSet: barSet)
-        barData.barWidth = 0.3
+        barData.barWidth = 0.8
         
         // Chart Data 설정
         let data = CombinedChartData()
